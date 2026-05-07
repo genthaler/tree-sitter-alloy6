@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "tree_sitter_Alloy6_binding",
+      "target_name": "tree_sitter_alloy6_binding",
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
         "src"
