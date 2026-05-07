@@ -1,0 +1,51 @@
+=====
+Names numbers and qualification
+=====
+
+module this/example
+open util/ordering[State]
+sig A_1 {}
+fact {
+  @field = 1
+  this/A_1 in univ
+}
+
+---
+
+(source_file
+  (module_declaration
+    (qualified_name
+      (identifier)))
+  (open_declaration
+    (qualified_name
+      (identifier)
+      (identifier))
+    (open_arguments
+      (qualified_name
+        (identifier))))
+  (signature_declaration
+    (name_list
+      (identifier)))
+  (fact_declaration
+    (block
+      (expression
+        (comparison_expression
+          (expression
+            (primary_expression
+              (at_name
+                (identifier))))
+          (comparison_operator)
+          (expression
+            (primary_expression
+              (constant
+                (number))))))
+      (expression
+        (comparison_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (comparison_operator)
+          (expression
+            (primary_expression
+              (constant))))))))

@@ -15,48 +15,65 @@ sig Person {
 
 (source_file
   (signature_declaration
-    names: (name_list (identifier)))
+    names: (name_list
+      (identifier)))
   (signature_declaration
     (multiplicity)
-    names: (name_list (identifier)))
+    names: (name_list
+      (identifier)))
   (signature_declaration
-    names: (name_list (identifier) (identifier))
+    names: (name_list
+      (identifier)
+      (identifier))
     (signature_extension
-      type: (qualified_name (identifier))))
+      type: (qualified_name
+        (identifier))))
   (signature_declaration
-    names: (name_list (identifier))
+    names: (name_list
+      (identifier))
     (signature_extension
-      types: (qualified_name (identifier))
-      types: (qualified_name (identifier))))
+      types: (qualified_name
+        (identifier))
+      types: (qualified_name
+        (identifier))))
   (signature_declaration
-    names: (name_list (identifier))
+    names: (name_list
+      (identifier))
     (field_declaration
       (declaration
-        (name_list (identifier))
+        (name_list
+          (identifier))
         (expression
           (unary_expression
-            operator: (unary_operator)
+            operator: (multiplicity_unary_operator)
             argument: (expression
               (primary_expression
-                (qualified_name (identifier))))))))
+                (qualified_name
+                  (identifier))))))))
     (field_declaration
       (declaration
-        (name_list (identifier) (identifier))
+        (name_list
+          (identifier)
+          (identifier))
         (expression
           (unary_expression
-            operator: (unary_operator)
+            operator: (multiplicity_unary_operator
+              (multiplicity))
             argument: (expression
               (primary_expression
-                (qualified_name (identifier))))))))
+                (qualified_name
+                  (identifier))))))))
     (block
       (expression
-        (binary_expression
-          (expression
-            (unary_expression
-              operator: (unary_operator)
-              argument: (expression
+        (unary_expression
+          operator: (multiplicity_unary_operator)
+          argument: (expression
+            (binary_expression
+              (expression
                 (primary_expression
-                  (qualified_name (identifier))))))
-          (expression
-            (primary_expression
-              (qualified_name (identifier)))))))))
+                  (qualified_name
+                    (identifier))))
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier)))))))))))

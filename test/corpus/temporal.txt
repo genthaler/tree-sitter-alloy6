@@ -1,0 +1,91 @@
+=====
+Alloy 6 temporal operators
+=====
+
+fact {
+  always eventually ready
+  after state'
+  before historically once done
+  a until b
+  c releases d
+  e since f
+  g triggered h
+}
+
+---
+
+(source_file
+  (fact_declaration
+    (block
+      (expression
+        (unary_expression
+          (logical_unary_operator)
+          (expression
+            (unary_expression
+              (logical_unary_operator)
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier))))))))
+      (expression
+        (unary_expression
+          (logical_unary_operator)
+          (expression
+            (prime_expression
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier))))))))
+      (expression
+        (unary_expression
+          (logical_unary_operator)
+          (expression
+            (unary_expression
+              (logical_unary_operator)
+              (expression
+                (unary_expression
+                  (logical_unary_operator)
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))))))))
+      (expression
+        (binary_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))))
+      (expression
+        (binary_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))))
+      (expression
+        (binary_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))))
+      (expression
+        (binary_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier)))))))))

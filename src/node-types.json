@@ -572,6 +572,11 @@
     }
   },
   {
+    "type": "logical_unary_operator",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "module_declaration",
     "named": true,
     "fields": {
@@ -616,6 +621,21 @@
     "type": "multiplicity",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "multiplicity_unary_operator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "multiplicity",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "name_list",
@@ -847,6 +867,11 @@
     }
   },
   {
+    "type": "relational_unary_operator",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "scope",
     "named": true,
     "fields": {},
@@ -1033,17 +1058,24 @@
         "required": true,
         "types": [
           {
-            "type": "unary_operator",
+            "type": "#",
+            "named": false
+          },
+          {
+            "type": "logical_unary_operator",
+            "named": true
+          },
+          {
+            "type": "multiplicity_unary_operator",
+            "named": true
+          },
+          {
+            "type": "relational_unary_operator",
             "named": true
           }
         ]
       }
     }
-  },
-  {
-    "type": "unary_operator",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "!",

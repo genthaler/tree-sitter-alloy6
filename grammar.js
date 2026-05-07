@@ -5,18 +5,20 @@ const PREC = {
   implication: 4,
   conjunction: 5,
   temporal_binary: 6,
-  comparison: 7,
-  quantifier: 8,
-  union: 9,
-  cardinality: 10,
-  override: 11,
-  intersection: 12,
-  arrow: 13,
-  restriction: 14,
-  box: 15,
-  join: 16,
-  prime: 17,
-  unary: 18,
+  comparison: 8,
+  multiplicity_unary: 9,
+  quantifier: 9,
+  union: 10,
+  cardinality: 11,
+  override: 12,
+  intersection: 13,
+  arrow: 14,
+  restriction: 15,
+  box: 16,
+  join: 17,
+  prime: 18,
+  unary: 19,
+  logical_unary: 7,
 };
 
 module.exports = grammar({
@@ -215,23 +217,40 @@ module.exports = grammar({
       $.identifier,
     ),
 
-    unary_expression: $ => prec(PREC.unary, seq(
-      field("operator", $.unary_operator),
-      field("argument", $.expression),
-    )),
+    unary_expression: $ => choice(
+      prec(PREC.unary, seq(
+        field("operator", $.relational_unary_operator),
+        field("argument", $.expression),
+      )),
+      prec(PREC.cardinality, seq(
+        field("operator", "#"),
+        field("argument", $.expression),
+      )),
+      prec(PREC.multiplicity_unary, seq(
+        field("operator", $.multiplicity_unary_operator),
+        field("argument", $.expression),
+      )),
+      prec(PREC.logical_unary, seq(
+        field("operator", $.logical_unary_operator),
+        field("argument", $.expression),
+      )),
+    ),
 
-    unary_operator: _ => choice(
-      "!",
-      "not",
-      "no",
-      "some",
-      "lone",
-      "one",
-      "set",
-      "#",
+    relational_unary_operator: _ => choice(
       "~",
       "*",
       "^",
+    ),
+
+    multiplicity_unary_operator: $ => choice(
+      "no",
+      $.multiplicity,
+      "set",
+    ),
+
+    logical_unary_operator: _ => choice(
+      "!",
+      "not",
       "always",
       "eventually",
       "after",
@@ -358,8 +377,7 @@ module.exports = grammar({
   },
 
   conflicts: $ => [
-    [$.unary_operator, $.quantifier],
-    [$.unary_operator, $.multiplicity],
+    [$.multiplicity_unary_operator, $.quantifier],
     [$.arrow_operator],
     [$.scope, $.type_scope],
   ],
