@@ -1,0 +1,62 @@
+=====
+Signatures and fields
+=====
+
+abstract sig Root {}
+var one sig State {}
+sig A, B extends Root {}
+sig C in A + B {}
+sig Person {
+  var friends: set Person,
+  disj owner, manager: one Person
+} { no friends & owner }
+
+---
+
+(source_file
+  (signature_declaration
+    names: (name_list (identifier)))
+  (signature_declaration
+    (multiplicity)
+    names: (name_list (identifier)))
+  (signature_declaration
+    names: (name_list (identifier) (identifier))
+    (signature_extension
+      type: (qualified_name (identifier))))
+  (signature_declaration
+    names: (name_list (identifier))
+    (signature_extension
+      types: (qualified_name (identifier))
+      types: (qualified_name (identifier))))
+  (signature_declaration
+    names: (name_list (identifier))
+    (field_declaration
+      (declaration
+        (name_list (identifier))
+        (expression
+          (unary_expression
+            operator: (unary_operator)
+            argument: (expression
+              (primary_expression
+                (qualified_name (identifier))))))))
+    (field_declaration
+      (declaration
+        (name_list (identifier) (identifier))
+        (expression
+          (unary_expression
+            operator: (unary_operator)
+            argument: (expression
+              (primary_expression
+                (qualified_name (identifier))))))))
+    (block
+      (expression
+        (binary_expression
+          (expression
+            (unary_expression
+              operator: (unary_operator)
+              argument: (expression
+                (primary_expression
+                  (qualified_name (identifier))))))
+          (expression
+            (primary_expression
+              (qualified_name (identifier)))))))))
