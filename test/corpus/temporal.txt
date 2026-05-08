@@ -53,37 +53,33 @@ fact {
                           (identifier)))))))))))
       (expression
         (binary_expression
-          (temporal_binary_expression
-            (primary_expression
-              (qualified_name
-                (identifier)))
-            (primary_expression
-              (qualified_name
-                (identifier))))))
+          (primary_expression
+            (qualified_name
+              (identifier)))
+          (primary_expression
+            (qualified_name
+              (identifier)))))
       (expression
         (binary_expression
-          (temporal_binary_expression
-            (primary_expression
-              (qualified_name
-                (identifier)))
-            (primary_expression
-              (qualified_name
-                (identifier))))))
+          (primary_expression
+            (qualified_name
+              (identifier)))
+          (primary_expression
+            (qualified_name
+              (identifier)))))
       (expression
         (binary_expression
-          (temporal_binary_expression
-            (primary_expression
-              (qualified_name
-                (identifier)))
-            (primary_expression
-              (qualified_name
-                (identifier))))))
+          (primary_expression
+            (qualified_name
+              (identifier)))
+          (primary_expression
+            (qualified_name
+              (identifier)))))
       (expression
         (binary_expression
-          (temporal_binary_expression
-            (primary_expression
-              (qualified_name
-                (identifier)))
-            (primary_expression
-              (qualified_name
-                (identifier)))))))))
+          (primary_expression
+            (qualified_name
+              (identifier)))
+          (primary_expression
+            (qualified_name
+              (identifier))))))))

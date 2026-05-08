@@ -13,22 +13,20 @@ fact {
     (block
       (expression
         (binary_expression
-          (sequence_expression
-            (expression
-              (primary_expression
-                (qualified_name
-                  (identifier))))
-            (expression
-              (binary_expression
-                (sequence_expression
-                  (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier))))
-                  (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier)))))))))))))
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (expression
+            (binary_expression
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier))))
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier)))))))))))
 
 =====
 Temporal step scopes

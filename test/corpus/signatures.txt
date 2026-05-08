@@ -68,12 +68,11 @@ sig Person {
           operator: (multiplicity_unary_operator)
           argument: (expression
             (binary_expression
-              (non_temporal_binary_expression
-                (expression
-                  (primary_expression
-                    (qualified_name
-                      (identifier))))
-                (expression
-                  (primary_expression
-                    (qualified_name
-                      (identifier))))))))))))
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier))))
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier)))))))))))

@@ -1528,19 +1528,19 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "sequence_expression"
+          "name": "_sequence_expression"
         },
         {
           "type": "SYMBOL",
-          "name": "temporal_binary_expression"
+          "name": "_temporal_binary_expression"
         },
         {
           "type": "SYMBOL",
-          "name": "non_temporal_binary_expression"
+          "name": "_non_temporal_binary_expression"
         }
       ]
     },
-    "sequence_expression": {
+    "_sequence_expression": {
       "type": "PREC_RIGHT",
       "value": 1,
       "content": {
@@ -1565,7 +1565,7 @@
         ]
       }
     },
-    "temporal_binary_expression": {
+    "_temporal_binary_expression": {
       "type": "PREC",
       "value": 6,
       "content": {
@@ -1632,7 +1632,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "non_temporal_binary_expression"
+          "name": "_non_temporal_binary_expression"
         },
         {
           "type": "SYMBOL",
@@ -1660,7 +1660,7 @@
         }
       ]
     },
-    "non_temporal_binary_expression": {
+    "_non_temporal_binary_expression": {
       "type": "CHOICE",
       "members": [
         {
@@ -2561,7 +2561,7 @@
       "arrow_expression"
     ],
     [
-      "non_temporal_binary_expression",
+      "_non_temporal_binary_expression",
       "implicit_conjunction_expression",
       "arrow_expression"
     ],
@@ -2591,7 +2591,7 @@
       "_temporal_binary_operand"
     ],
     [
-      "temporal_binary_expression"
+      "_temporal_binary_expression"
     ]
   ],
   "precedences": [],
