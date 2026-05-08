@@ -28,7 +28,11 @@ tree-sitter parse test.als
 When changing the grammar:
 
 - update `grammar.js`
-- regenerate `src/parser.c`, `src/grammar.json`, and `src/node-types.json`
+- regenerate the Tree-sitter artifacts by running:
+  ```sh
+  tree-sitter generate
+  ```
+  This updates `src/parser.c`, `src/grammar.json`, and `src/node-types.json`; commit those generated files with the grammar change.
 - add or update focused corpus tests under `test/corpus/`
 - run the verification commands above
 - confirm `tree_sitter_alloy6` remains the generated export name
