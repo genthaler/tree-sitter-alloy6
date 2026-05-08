@@ -15,6 +15,6 @@
   },
   "scripts": {
     "test": "tree-sitter test",
-    "test:examples": "scripts/parse-alloytools-models.sh"
+    "test:examples": "node scripts/parse-alloytools-models.js"
   }
 }
