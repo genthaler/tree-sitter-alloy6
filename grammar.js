@@ -7,7 +7,7 @@ const PREC = {
   temporal_binary: 6,
   comparison: 8,
   multiplicity_unary: 9,
-  quantifier: 9,
+  quantifier: 10,
   union: 10,
   cardinality: 11,
   override: 12,
@@ -70,6 +70,7 @@ module.exports = grammar({
       $.function_declaration,
       $.assertion_declaration,
       $.command_declaration,
+      $.enum_declaration,
     ),
 
     signature_declaration: $ => seq(
@@ -136,22 +137,45 @@ module.exports = grammar({
       $.block,
     ),
 
+    enum_declaration: $ => seq(
+      "enum",
+      field("name", $.identifier),
+      "{",
+      commaSep1($.identifier),
+      "}",
+    ),
+
     command_declaration: $ => seq(
       optional(seq(field("name", $.identifier), ":")),
       choice("run", "check"),
-      field("target", choice($.qualified_name, $.block)),
+      field("target", choice(
+        seq($.qualified_name, optional($.block)),
+        $.block,
+      )),
       optional($.scope),
+      optional(seq("expect", $.number)),
     ),
 
     scope: $ => choice(
-      seq("for", $.number, optional(seq("but", commaSep1($.type_scope)))),
-      seq("for", commaSep1($.type_scope)),
+      seq("for", $.number, optional(seq("but", commaSep1($.scope_item)))),
+      seq("for", commaSep1($.scope_item)),
+    ),
+
+    scope_item: $ => choice(
+      $.type_scope,
+      $.step_scope,
     ),
 
     type_scope: $ => seq(
       optional("exactly"),
       $.number,
       $.qualified_name,
+    ),
+
+    step_scope: $ => seq(
+      $.number,
+      optional(".."),
+      "steps",
     ),
 
     declaration: $ => seq(
@@ -183,13 +207,14 @@ module.exports = grammar({
 
     expression: $ => choice(
       $.primary_expression,
-      $.unary_expression,
-      $.binary_expression,
-      $.comparison_expression,
-      $.implication_expression,
       $.let_expression,
       $.quantified_expression,
       $.set_comprehension,
+      $.unary_expression,
+      $.binary_expression,
+      $.implicit_conjunction_expression,
+      $.comparison_expression,
+      $.implication_expression,
       $.box_expression,
       $.prime_expression,
       $.arrow_expression,
@@ -242,10 +267,13 @@ module.exports = grammar({
       "^",
     ),
 
-    multiplicity_unary_operator: $ => choice(
+    multiplicity_unary_operator: _ => choice(
       "no",
-      $.multiplicity,
+      "some",
+      "lone",
+      "one",
       "set",
+      "int",
     ),
 
     logical_unary_operator: _ => choice(
@@ -270,6 +298,11 @@ module.exports = grammar({
       prec.left(PREC.intersection, seq($.expression, field("operator", "&"), $.expression)),
       prec.left(PREC.restriction, seq($.expression, field("operator", choice("<:", ":>")), $.expression)),
       prec.left(PREC.join, seq($.expression, field("operator", "."), $.expression)),
+    ),
+
+    implicit_conjunction_expression: $ => choice(
+      prec.left(PREC.conjunction, seq($.expression, $.quantified_expression)),
+      prec.left(PREC.conjunction, seq($.expression, $.unary_expression)),
     ),
 
     implication_expression: $ => prec.right(PREC.implication, seq(
@@ -331,11 +364,11 @@ module.exports = grammar({
       $.expression,
     ),
 
-    quantified_expression: $ => prec.right(PREC.quantifier, seq(
+    quantified_expression: $ => prec.dynamic(1, prec.right(PREC.quantifier, seq(
       $.quantifier,
       commaSep1($.declaration),
       $.block_or_bar,
-    )),
+    ))),
 
     set_comprehension: $ => seq(
       "{",
@@ -344,11 +377,13 @@ module.exports = grammar({
       "}",
     ),
 
-    quantifier: $ => choice(
+    quantifier: _ => choice(
       "all",
       "no",
       "sum",
-      $.multiplicity,
+      "some",
+      "lone",
+      "one",
     ),
 
     multiplicity: _ => choice(
@@ -378,6 +413,11 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.multiplicity_unary_operator, $.quantifier],
+    [$.unary_expression, $.implicit_conjunction_expression, $.arrow_expression],
+    [$.binary_expression, $.implicit_conjunction_expression, $.arrow_expression],
+    [$.comparison_expression, $.implicit_conjunction_expression, $.arrow_expression],
+    [$.unary_expression, $.implicit_conjunction_expression, $.comparison_expression],
+    [$.binary_expression, $.implicit_conjunction_expression, $.comparison_expression],
     [$.arrow_operator],
     [$.scope, $.type_scope],
   ],

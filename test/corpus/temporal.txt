@@ -18,37 +18,39 @@ fact {
   (fact_declaration
     (block
       (expression
-        (unary_expression
-          (logical_unary_operator)
+        (implicit_conjunction_expression
           (expression
-            (unary_expression
-              (logical_unary_operator)
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))))
-      (expression
-        (unary_expression
-          (logical_unary_operator)
-          (expression
-            (prime_expression
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))))
-      (expression
-        (unary_expression
-          (logical_unary_operator)
-          (expression
-            (unary_expression
-              (logical_unary_operator)
+            (implicit_conjunction_expression
               (expression
                 (unary_expression
                   (logical_unary_operator)
                   (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier))))))))))
+                    (unary_expression
+                      (logical_unary_operator)
+                      (expression
+                        (primary_expression
+                          (qualified_name
+                            (identifier))))))))
+              (unary_expression
+                (logical_unary_operator)
+                (expression
+                  (prime_expression
+                    (expression
+                      (primary_expression
+                        (qualified_name
+                          (identifier)))))))))
+          (unary_expression
+            (logical_unary_operator)
+            (expression
+              (unary_expression
+                (logical_unary_operator)
+                (expression
+                  (unary_expression
+                    (logical_unary_operator)
+                    (expression
+                      (primary_expression
+                        (qualified_name
+                          (identifier)))))))))))
       (expression
         (binary_expression
           (expression

@@ -57,8 +57,7 @@ sig Person {
           (identifier))
         (expression
           (unary_expression
-            operator: (multiplicity_unary_operator
-              (multiplicity))
+            operator: (multiplicity_unary_operator)
             argument: (expression
               (primary_expression
                 (qualified_name

@@ -68,38 +68,39 @@ fact {
                     (qualified_name
                       (identifier)))))))))
       (expression
-        (prime_expression
-          (expression
-            (box_expression
-              (expression
-                (binary_expression
-                  (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier))))
-                  (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier))))))
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))))
-      (expression
         (binary_expression
           (expression
             (binary_expression
               (expression
-                (unary_expression
-                  (relational_unary_operator)
+                (implicit_conjunction_expression
                   (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier))))))
+                    (prime_expression
+                      (expression
+                        (box_expression
+                          (expression
+                            (binary_expression
+                              (expression
+                                (primary_expression
+                                  (qualified_name
+                                    (identifier))))
+                              (expression
+                                (primary_expression
+                                  (qualified_name
+                                    (identifier))))))
+                          (expression
+                            (primary_expression
+                              (qualified_name
+                                (identifier))))
+                          (expression
+                            (primary_expression
+                              (qualified_name
+                                (identifier))))))))
+                  (unary_expression
+                    (relational_unary_operator)
+                    (expression
+                      (primary_expression
+                        (qualified_name
+                          (identifier)))))))
               (expression
                 (unary_expression
                   (relational_unary_operator)
@@ -142,26 +143,27 @@ fact {
               (qualified_name
                 (identifier))))))
       (expression
-        (arrow_expression
-          (expression
-            (primary_expression
-              (qualified_name
-                (identifier))))
-          (arrow_operator
-            (multiplicity)
-            (multiplicity))
-          (expression
-            (primary_expression
-              (qualified_name
-                (identifier))))))
-      (expression
         (comparison_expression
           (expression
-            (unary_expression
+            (implicit_conjunction_expression
               (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))
+                (arrow_expression
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))
+                  (arrow_operator
+                    (multiplicity)
+                    (multiplicity))
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))))
+              (unary_expression
+                (expression
+                  (primary_expression
+                    (qualified_name
+                      (identifier)))))))
           (comparison_operator)
           (expression
             (primary_expression

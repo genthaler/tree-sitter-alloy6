@@ -19,7 +19,7 @@ fi
 
 failed=0
 while IFS= read -r -d '' model; do
-  output="$(tree-sitter parse "$model" 2>&1)" || {
+  output="$(tree-sitter parse --quiet --stat "$model" 2>&1)" || {
     printf '%s\n' "$output" >&2
     failed=1
     continue

@@ -218,6 +218,10 @@
         {
           "type": "SYMBOL",
           "name": "command_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "enum_declaration"
         }
       ]
     },
@@ -730,6 +734,56 @@
         }
       ]
     },
+    "enum_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "enum"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
     "command_declaration": {
       "type": "SEQ",
       "members": [
@@ -778,8 +832,25 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "qualified_name"
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "qualified_name"
+                  },
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "block"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "type": "SYMBOL",
@@ -794,6 +865,27 @@
             {
               "type": "SYMBOL",
               "name": "scope"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "expect"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -831,7 +923,7 @@
                       "members": [
                         {
                           "type": "SYMBOL",
-                          "name": "type_scope"
+                          "name": "scope_item"
                         },
                         {
                           "type": "REPEAT",
@@ -844,7 +936,7 @@
                               },
                               {
                                 "type": "SYMBOL",
-                                "name": "type_scope"
+                                "name": "scope_item"
                               }
                             ]
                           }
@@ -872,7 +964,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "type_scope"
+                  "name": "scope_item"
                 },
                 {
                   "type": "REPEAT",
@@ -885,7 +977,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "type_scope"
+                        "name": "scope_item"
                       }
                     ]
                   }
@@ -893,6 +985,19 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    "scope_item": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "type_scope"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "step_scope"
         }
       ]
     },
@@ -918,6 +1023,31 @@
         {
           "type": "SYMBOL",
           "name": "qualified_name"
+        }
+      ]
+    },
+    "step_scope": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ".."
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "steps"
         }
       ]
     },
@@ -1055,22 +1185,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "unary_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "binary_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "comparison_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "implication_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "let_expression"
         },
         {
@@ -1080,6 +1194,26 @@
         {
           "type": "SYMBOL",
           "name": "set_comprehension"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "binary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implicit_conjunction_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comparison_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implication_expression"
         },
         {
           "type": "SYMBOL",
@@ -1314,12 +1448,24 @@
           "value": "no"
         },
         {
-          "type": "SYMBOL",
-          "name": "multiplicity"
+          "type": "STRING",
+          "value": "some"
+        },
+        {
+          "type": "STRING",
+          "value": "lone"
+        },
+        {
+          "type": "STRING",
+          "value": "one"
         },
         {
           "type": "STRING",
           "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "int"
         }
       ]
     },
@@ -1677,6 +1823,45 @@
         }
       ]
     },
+    "implicit_conjunction_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": 5,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "quantified_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 5,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unary_expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "implication_expression": {
       "type": "PREC_RIGHT",
       "value": 4,
@@ -1972,7 +2157,7 @@
     },
     "let_expression": {
       "type": "PREC_RIGHT",
-      "value": 9,
+      "value": 10,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2030,45 +2215,49 @@
       ]
     },
     "quantified_expression": {
-      "type": "PREC_RIGHT",
-      "value": 9,
+      "type": "PREC_DYNAMIC",
+      "value": 1,
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "quantifier"
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "declaration"
-              },
-              {
-                "type": "REPEAT",
-                "content": {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": ","
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "declaration"
-                    }
-                  ]
+        "type": "PREC_RIGHT",
+        "value": 10,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "quantifier"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "declaration"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "declaration"
+                      }
+                    ]
+                  }
                 }
-              }
-            ]
-          },
-          {
-            "type": "SYMBOL",
-            "name": "block_or_bar"
-          }
-        ]
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "block_or_bar"
+            }
+          ]
+        }
       }
     },
     "set_comprehension": {
@@ -2129,8 +2318,16 @@
           "value": "sum"
         },
         {
-          "type": "SYMBOL",
-          "name": "multiplicity"
+          "type": "STRING",
+          "value": "some"
+        },
+        {
+          "type": "STRING",
+          "value": "lone"
+        },
+        {
+          "type": "STRING",
+          "value": "one"
         }
       ]
     },
@@ -2270,6 +2467,31 @@
     [
       "multiplicity_unary_operator",
       "quantifier"
+    ],
+    [
+      "unary_expression",
+      "implicit_conjunction_expression",
+      "arrow_expression"
+    ],
+    [
+      "binary_expression",
+      "implicit_conjunction_expression",
+      "arrow_expression"
+    ],
+    [
+      "comparison_expression",
+      "implicit_conjunction_expression",
+      "arrow_expression"
+    ],
+    [
+      "unary_expression",
+      "implicit_conjunction_expression",
+      "comparison_expression"
+    ],
+    [
+      "binary_expression",
+      "implicit_conjunction_expression",
+      "comparison_expression"
     ],
     [
       "arrow_operator"

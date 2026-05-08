@@ -28,8 +28,7 @@ check acyclic for 3 Person
           (block_or_bar
             (expression
               (unary_expression
-                operator: (multiplicity_unary_operator
-                  (multiplicity))
+                operator: (multiplicity_unary_operator)
                 argument: (expression
                   (binary_expression
                     (expression
@@ -117,23 +116,24 @@ check acyclic for 3 Person
     target: (block
       (expression
         (unary_expression
-          operator: (multiplicity_unary_operator
-            (multiplicity))
+          operator: (multiplicity_unary_operator)
           argument: (expression
             (primary_expression
               (qualified_name
                 (identifier)))))))
     (scope
       (number)
-      (type_scope
-        (number)
-        (qualified_name
-          (identifier)))))
+      (scope_item
+        (type_scope
+          (number)
+          (qualified_name
+            (identifier))))))
   (command_declaration
     target: (qualified_name
       (identifier))
     (scope
-      (type_scope
-        (number)
-        (qualified_name
-          (identifier))))))
+      (scope_item
+        (type_scope
+          (number)
+          (qualified_name
+            (identifier)))))))
