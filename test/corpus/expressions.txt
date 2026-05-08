@@ -26,14 +26,15 @@ fact {
             (identifier)
             (expression
               (binary_expression
-                (expression
-                  (primary_expression
-                    (qualified_name
-                      (identifier))))
-                (expression
-                  (primary_expression
-                    (qualified_name
-                      (identifier)))))))
+                (non_temporal_binary_expression
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))))))
           (block_or_bar
             (expression
               (comparison_expression
@@ -69,16 +70,27 @@ fact {
                       (identifier)))))))))
       (expression
         (binary_expression
-          (expression
-            (binary_expression
-              (expression
-                (implicit_conjunction_expression
+          (non_temporal_binary_expression
+            (expression
+              (binary_expression
+                (non_temporal_binary_expression
                   (expression
-                    (prime_expression
+                    (implicit_conjunction_expression
                       (expression
-                        (box_expression
+                        (prime_expression
                           (expression
-                            (binary_expression
+                            (box_expression
+                              (expression
+                                (binary_expression
+                                  (non_temporal_binary_expression
+                                    (expression
+                                      (primary_expression
+                                        (qualified_name
+                                          (identifier))))
+                                    (expression
+                                      (primary_expression
+                                        (qualified_name
+                                          (identifier)))))))
                               (expression
                                 (primary_expression
                                   (qualified_name
@@ -86,51 +98,45 @@ fact {
                               (expression
                                 (primary_expression
                                   (qualified_name
-                                    (identifier))))))
-                          (expression
-                            (primary_expression
-                              (qualified_name
-                                (identifier))))
-                          (expression
-                            (primary_expression
-                              (qualified_name
-                                (identifier))))))))
-                  (unary_expression
-                    (relational_unary_operator)
-                    (expression
-                      (primary_expression
-                        (qualified_name
-                          (identifier)))))))
-              (expression
-                (unary_expression
-                  (relational_unary_operator)
+                                    (identifier))))))))
+                      (unary_expression
+                        (relational_unary_operator)
+                        (expression
+                          (primary_expression
+                            (qualified_name
+                              (identifier)))))))
+                  (expression
+                    (unary_expression
+                      (relational_unary_operator)
+                      (expression
+                        (primary_expression
+                          (qualified_name
+                            (identifier)))))))))
+            (expression
+              (unary_expression
+                (relational_unary_operator)
+                (expression
+                  (primary_expression
+                    (qualified_name
+                      (identifier)))))))))
+      (expression
+        (binary_expression
+          (non_temporal_binary_expression
+            (expression
+              (binary_expression
+                (non_temporal_binary_expression
                   (expression
                     (primary_expression
                       (qualified_name
-                        (identifier))))))))
-          (expression
-            (unary_expression
-              (relational_unary_operator)
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))))
-      (expression
-        (binary_expression
-          (expression
-            (binary_expression
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))
-          (expression
-            (primary_expression
-              (qualified_name
-                (identifier))))))
+                        (identifier))))
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier)))))))
+            (expression
+              (primary_expression
+                (qualified_name
+                  (identifier)))))))
       (expression
         (arrow_expression
           (expression
@@ -185,17 +191,19 @@ fact {
                 (identifier))))))
       (expression
         (binary_expression
-          (expression
-            (binary_expression
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))
-          (expression
-            (primary_expression
-              (qualified_name
-                (identifier)))))))))
+          (sequence_expression
+            (expression
+              (primary_expression
+                (qualified_name
+                  (identifier))))
+            (expression
+              (binary_expression
+                (sequence_expression
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier)))))))))))))
