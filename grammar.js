@@ -288,15 +288,15 @@ module.exports = grammar({
     ),
 
     binary_expression: $ => choice(
-      $.sequence_expression,
-      $.temporal_binary_expression,
-      $.non_temporal_binary_expression,
+      $._sequence_expression,
+      $._temporal_binary_expression,
+      $._non_temporal_binary_expression,
     ),
 
-    sequence_expression: $ =>
+    _sequence_expression: $ =>
       prec.right(PREC.sequence, seq($.expression, field("operator", ";"), $.expression)),
 
-    temporal_binary_expression: $ => prec(PREC.temporal_binary, seq(
+    _temporal_binary_expression: $ => prec(PREC.temporal_binary, seq(
       $._temporal_binary_operand,
       field("operator", choice("until", "releases", "since", "triggered")),
       $._temporal_binary_operand,
@@ -308,7 +308,7 @@ module.exports = grammar({
       $.quantified_expression,
       $.set_comprehension,
       $.unary_expression,
-      $.non_temporal_binary_expression,
+      $._non_temporal_binary_expression,
       $.implicit_conjunction_expression,
       $.comparison_expression,
       $.implication_expression,
@@ -317,7 +317,7 @@ module.exports = grammar({
       $.arrow_expression,
     ),
 
-    non_temporal_binary_expression: $ => choice(
+    _non_temporal_binary_expression: $ => choice(
       prec.left(PREC.disjunction, seq($.expression, field("operator", choice("||", "or")), $.expression)),
       prec.left(PREC.iff, seq($.expression, field("operator", choice("<=>", "iff")), $.expression)),
       prec.left(PREC.conjunction, seq($.expression, field("operator", choice("&&", "and")), $.expression)),
@@ -442,14 +442,14 @@ module.exports = grammar({
   conflicts: $ => [
     [$.multiplicity_unary_operator, $.quantifier],
     [$.unary_expression, $.implicit_conjunction_expression, $.arrow_expression],
-    [$.non_temporal_binary_expression, $.implicit_conjunction_expression, $.arrow_expression],
+    [$._non_temporal_binary_expression, $.implicit_conjunction_expression, $.arrow_expression],
     [$.comparison_expression, $.implicit_conjunction_expression, $.arrow_expression],
     [$.unary_expression, $.implicit_conjunction_expression, $.comparison_expression],
     [$.arrow_operator],
     [$.scope, $.type_scope],
     [$.expression, $._temporal_binary_operand],
     [$.binary_expression, $._temporal_binary_operand],
-    [$.temporal_binary_expression],
+    [$._temporal_binary_expression],
   ],
 });
 
