@@ -1037,8 +1037,25 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": ".."
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ".."
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "number"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -1510,30 +1527,142 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "PREC_LEFT",
-          "value": 1,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
-                  "value": ";"
-                }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              }
-            ]
-          }
+          "type": "SYMBOL",
+          "name": "sequence_expression"
         },
+        {
+          "type": "SYMBOL",
+          "name": "temporal_binary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "non_temporal_binary_expression"
+        }
+      ]
+    },
+    "sequence_expression": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          },
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": ";"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        ]
+      }
+    },
+    "temporal_binary_expression": {
+      "type": "PREC",
+      "value": 6,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_temporal_binary_operand"
+          },
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "until"
+                },
+                {
+                  "type": "STRING",
+                  "value": "releases"
+                },
+                {
+                  "type": "STRING",
+                  "value": "since"
+                },
+                {
+                  "type": "STRING",
+                  "value": "triggered"
+                }
+              ]
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_temporal_binary_operand"
+          }
+        ]
+      }
+    },
+    "_temporal_binary_operand": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "primary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "let_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quantified_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "set_comprehension"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "non_temporal_binary_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implicit_conjunction_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "comparison_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implication_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "box_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "prime_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "arrow_expression"
+        }
+      ]
+    },
+    "non_temporal_binary_expression": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "PREC_LEFT",
           "value": 2,
@@ -1625,48 +1754,6 @@
                     {
                       "type": "STRING",
                       "value": "and"
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": 6,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "expression"
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "STRING",
-                      "value": "until"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "releases"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "since"
-                    },
-                    {
-                      "type": "STRING",
-                      "value": "triggered"
                     }
                   ]
                 }
@@ -2474,7 +2561,7 @@
       "arrow_expression"
     ],
     [
-      "binary_expression",
+      "non_temporal_binary_expression",
       "implicit_conjunction_expression",
       "arrow_expression"
     ],
@@ -2489,16 +2576,22 @@
       "comparison_expression"
     ],
     [
-      "binary_expression",
-      "implicit_conjunction_expression",
-      "comparison_expression"
-    ],
-    [
       "arrow_operator"
     ],
     [
       "scope",
       "type_scope"
+    ],
+    [
+      "expression",
+      "_temporal_binary_operand"
+    ],
+    [
+      "binary_expression",
+      "_temporal_binary_operand"
+    ],
+    [
+      "temporal_binary_expression"
     ]
   ],
   "precedences": [],

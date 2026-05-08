@@ -31,14 +31,15 @@ check acyclic for 3 Person
                 operator: (multiplicity_unary_operator)
                 argument: (expression
                   (binary_expression
-                    (expression
-                      (primary_expression
-                        (qualified_name
-                          (identifier))))
-                    (expression
-                      (primary_expression
-                        (qualified_name
-                          (identifier)))))))))))))
+                    (non_temporal_binary_expression
+                      (expression
+                        (primary_expression
+                          (qualified_name
+                            (identifier))))
+                      (expression
+                        (primary_expression
+                          (qualified_name
+                            (identifier))))))))))))))
   (predicate_declaration
     (receiver
       (qualified_name
@@ -62,12 +63,13 @@ check acyclic for 3 Person
           operator: (comparison_operator)
           (expression
             (binary_expression
-              (expression
-                (primary_expression))
-              (expression
-                (primary_expression
-                  (qualified_name
-                    (identifier))))))))))
+              (non_temporal_binary_expression
+                (expression
+                  (primary_expression))
+                (expression
+                  (primary_expression
+                    (qualified_name
+                      (identifier)))))))))))
   (function_declaration
     name: (identifier)
     (parameter_declarations
@@ -85,14 +87,15 @@ check acyclic for 3 Person
     body: (braced_expression
       (expression
         (binary_expression
-          (expression
-            (primary_expression
-              (qualified_name
-                (identifier))))
-          (expression
-            (primary_expression
-              (qualified_name
-                (identifier))))))))
+          (non_temporal_binary_expression
+            (expression
+              (primary_expression
+                (qualified_name
+                  (identifier))))
+            (expression
+              (primary_expression
+                (qualified_name
+                  (identifier)))))))))
   (assertion_declaration
     name: (identifier)
     (block
@@ -101,16 +104,17 @@ check acyclic for 3 Person
           operator: (multiplicity_unary_operator)
           argument: (expression
             (binary_expression
-              (expression
-                (primary_expression
-                  (constant)))
-              (expression
-                (unary_expression
-                  operator: (relational_unary_operator)
-                  argument: (expression
-                    (primary_expression
-                      (qualified_name
-                        (identifier))))))))))))
+              (non_temporal_binary_expression
+                (expression
+                  (primary_expression
+                    (constant)))
+                (expression
+                  (unary_expression
+                    operator: (relational_unary_operator)
+                    argument: (expression
+                      (primary_expression
+                        (qualified_name
+                          (identifier)))))))))))))
   (command_declaration
     name: (identifier)
     target: (block

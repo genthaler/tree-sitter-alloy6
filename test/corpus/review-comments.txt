@@ -1,0 +1,62 @@
+=====
+Right-associative sequence
+=====
+
+fact {
+  a ; b ; c
+}
+
+---
+
+(source_file
+  (fact_declaration
+    (block
+      (expression
+        (binary_expression
+          (sequence_expression
+            (expression
+              (primary_expression
+                (qualified_name
+                  (identifier))))
+            (expression
+              (binary_expression
+                (sequence_expression
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))
+                  (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier)))))))))))))
+
+=====
+Temporal step scopes
+=====
+
+run {} for 10 steps
+run {} for 1.. steps
+run {} for 1..10 steps
+
+---
+
+(source_file
+  (command_declaration
+    (block)
+    (scope
+      (scope_item
+        (step_scope
+          (number)))))
+  (command_declaration
+    (block)
+    (scope
+      (scope_item
+        (step_scope
+          (number)))))
+  (command_declaration
+    (block)
+    (scope
+      (scope_item
+        (step_scope
+          (number)
+          (number))))))

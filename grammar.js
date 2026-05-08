@@ -174,7 +174,7 @@ module.exports = grammar({
 
     step_scope: $ => seq(
       $.number,
-      optional(".."),
+      optional(seq("..", optional($.number))),
       "steps",
     ),
 
@@ -288,11 +288,39 @@ module.exports = grammar({
     ),
 
     binary_expression: $ => choice(
-      prec.left(PREC.sequence, seq($.expression, field("operator", ";"), $.expression)),
+      $.sequence_expression,
+      $.temporal_binary_expression,
+      $.non_temporal_binary_expression,
+    ),
+
+    sequence_expression: $ =>
+      prec.right(PREC.sequence, seq($.expression, field("operator", ";"), $.expression)),
+
+    temporal_binary_expression: $ => prec(PREC.temporal_binary, seq(
+      $._temporal_binary_operand,
+      field("operator", choice("until", "releases", "since", "triggered")),
+      $._temporal_binary_operand,
+    )),
+
+    _temporal_binary_operand: $ => choice(
+      $.primary_expression,
+      $.let_expression,
+      $.quantified_expression,
+      $.set_comprehension,
+      $.unary_expression,
+      $.non_temporal_binary_expression,
+      $.implicit_conjunction_expression,
+      $.comparison_expression,
+      $.implication_expression,
+      $.box_expression,
+      $.prime_expression,
+      $.arrow_expression,
+    ),
+
+    non_temporal_binary_expression: $ => choice(
       prec.left(PREC.disjunction, seq($.expression, field("operator", choice("||", "or")), $.expression)),
       prec.left(PREC.iff, seq($.expression, field("operator", choice("<=>", "iff")), $.expression)),
       prec.left(PREC.conjunction, seq($.expression, field("operator", choice("&&", "and")), $.expression)),
-      prec.left(PREC.temporal_binary, seq($.expression, field("operator", choice("until", "releases", "since", "triggered")), $.expression)),
       prec.left(PREC.union, seq($.expression, field("operator", choice("+", "-")), $.expression)),
       prec.left(PREC.override, seq($.expression, field("operator", "++"), $.expression)),
       prec.left(PREC.intersection, seq($.expression, field("operator", "&"), $.expression)),
@@ -414,12 +442,14 @@ module.exports = grammar({
   conflicts: $ => [
     [$.multiplicity_unary_operator, $.quantifier],
     [$.unary_expression, $.implicit_conjunction_expression, $.arrow_expression],
-    [$.binary_expression, $.implicit_conjunction_expression, $.arrow_expression],
+    [$.non_temporal_binary_expression, $.implicit_conjunction_expression, $.arrow_expression],
     [$.comparison_expression, $.implicit_conjunction_expression, $.arrow_expression],
     [$.unary_expression, $.implicit_conjunction_expression, $.comparison_expression],
-    [$.binary_expression, $.implicit_conjunction_expression, $.comparison_expression],
     [$.arrow_operator],
     [$.scope, $.type_scope],
+    [$.expression, $._temporal_binary_operand],
+    [$.binary_expression, $._temporal_binary_operand],
+    [$.temporal_binary_expression],
   ],
 });
 
