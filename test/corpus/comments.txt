@@ -1,0 +1,18 @@
+=====
+Comments
+=====
+
+// line comment
+-- another line comment
+/* block comment */
+sig A {}
+
+---
+
+(source_file
+  (comment)
+  (comment)
+  (comment)
+  (signature_declaration
+    (name_list
+      (identifier))))

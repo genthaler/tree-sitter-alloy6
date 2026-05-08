@@ -1,0 +1,139 @@
+=====
+Facts predicates functions assertions and commands
+=====
+
+fact named { all p: Person | some p.friends }
+pred Person.owns[x: Person] { x in this.friends }
+fun links[x: Person]: Person { x.friends }
+assert acyclic { no iden & ^friends }
+show: run { some Person } for 5 but exactly 2 Person
+check acyclic for 3 Person
+
+---
+
+(source_file
+  (fact_declaration
+    name: (identifier)
+    (block
+      (expression
+        (quantified_expression
+          (quantifier)
+          (declaration
+            (name_list
+              (identifier))
+            (expression
+              (primary_expression
+                (qualified_name
+                  (identifier)))))
+          (block_or_bar
+            (expression
+              (unary_expression
+                operator: (multiplicity_unary_operator)
+                argument: (expression
+                  (binary_expression
+                    (expression
+                      (primary_expression
+                        (qualified_name
+                          (identifier))))
+                    (expression
+                      (primary_expression
+                        (qualified_name
+                          (identifier)))))))))))))
+  (predicate_declaration
+    (receiver
+      (qualified_name
+        (identifier)))
+    name: (identifier)
+    (parameter_declarations
+      (declaration
+        (name_list
+          (identifier))
+        (expression
+          (primary_expression
+            (qualified_name
+              (identifier))))))
+    (block
+      (expression
+        (comparison_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          operator: (comparison_operator)
+          (expression
+            (binary_expression
+              (expression
+                (primary_expression))
+              (expression
+                (primary_expression
+                  (qualified_name
+                    (identifier))))))))))
+  (function_declaration
+    name: (identifier)
+    (parameter_declarations
+      (declaration
+        (name_list
+          (identifier))
+        (expression
+          (primary_expression
+            (qualified_name
+              (identifier))))))
+    return_type: (expression
+      (primary_expression
+        (qualified_name
+          (identifier))))
+    body: (braced_expression
+      (expression
+        (binary_expression
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))
+          (expression
+            (primary_expression
+              (qualified_name
+                (identifier))))))))
+  (assertion_declaration
+    name: (identifier)
+    (block
+      (expression
+        (unary_expression
+          operator: (multiplicity_unary_operator)
+          argument: (expression
+            (binary_expression
+              (expression
+                (primary_expression
+                  (constant)))
+              (expression
+                (unary_expression
+                  operator: (relational_unary_operator)
+                  argument: (expression
+                    (primary_expression
+                      (qualified_name
+                        (identifier))))))))))))
+  (command_declaration
+    name: (identifier)
+    target: (block
+      (expression
+        (unary_expression
+          operator: (multiplicity_unary_operator)
+          argument: (expression
+            (primary_expression
+              (qualified_name
+                (identifier)))))))
+    (scope
+      (number)
+      (scope_item
+        (type_scope
+          (number)
+          (qualified_name
+            (identifier))))))
+  (command_declaration
+    target: (qualified_name
+      (identifier))
+    (scope
+      (scope_item
+        (type_scope
+          (number)
+          (qualified_name
+            (identifier)))))))

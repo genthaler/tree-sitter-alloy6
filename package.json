@@ -14,6 +14,7 @@
     "tree-sitter-cli": "^0.20.9"
   },
   "scripts": {
-    "test": "tree-sitter test"
+    "test": "tree-sitter test",
+    "test:examples": "scripts/parse-alloytools-models.sh"
   }
 }

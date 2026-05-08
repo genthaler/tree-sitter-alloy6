@@ -1,0 +1,20 @@
+=====
+Modules and opens
+=====
+
+module examples/root[A, B]
+open util/ordering[State] as ord
+open util/integer
+
+---
+
+(source_file
+  (module_declaration
+    name: (qualified_name (identifier) (identifier))
+    (module_parameters (identifier) (identifier)))
+  (open_declaration
+    name: (qualified_name (identifier) (identifier))
+    (open_arguments (qualified_name (identifier)))
+    alias: (identifier))
+  (open_declaration
+    name: (qualified_name (identifier) (identifier))))
